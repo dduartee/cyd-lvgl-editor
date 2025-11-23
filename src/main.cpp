@@ -121,8 +121,7 @@ void setup() {
   
   init_settings_screen();
   init_main_screen();
-  
-  set_event_handler_settings_btn(event_handler_settings_btn);
+
   load_main_screen();
   load_settings_screen();
   // Return to main screen

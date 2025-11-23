@@ -3,7 +3,9 @@
 #include <lvgl.h>
 #include "Logger.h"
 #include "screens/screens.h"
+using namespace SCREENS::MAIN;
 static lv_obj_t * slider_label;
+
 
 // Callback que imprime o valor do slider na tela e no Serial Monitor
 static void slider_event_callback(lv_event_t * e) {
@@ -16,14 +18,13 @@ static void slider_event_callback(lv_event_t * e) {
   LOG_VAR(lv_slider_get_value(slider));
 }
 
-int btn1_count = 0;
 // Callback que é chamado quando btn1 é clicado
 static void event_handler_btn1(lv_event_t * e) {
   lv_event_code_t code = lv_event_get_code(e);
   if(code == LV_EVENT_CLICKED) {
-    btn1_count++;
+    main_config.btn1_count++;
     LOG_STR("Button clicked");
-    LOG_VAR(btn1_count);
+    LOG_VAR(main_config.btn1_count);
   }
 }
 // Callback que é chamado quando btn2 é clicado/toggle
@@ -35,12 +36,7 @@ static void event_handler_btn2(lv_event_t * e) {
     LOG_STR(toggled ? "Toggled on" : "Toggled off");
   }
 }
-// define a callback for settings button
-typedef void (*event_handler_t)(lv_event_t * e);
-event_handler_t handler_settings_btn;
-void set_event_handler_settings_btn(event_handler_t handler) {
-    handler_settings_btn = handler;
-}
+
 void lv_create_main_gui(void) {
   LOG_STR("Creating main GUI");
   // Create a text label aligned center on top ("Hello, world!")
@@ -87,7 +83,7 @@ void lv_create_main_gui(void) {
 
   // Create Settings button
   lv_obj_t * settings_btn = lv_button_create(lv_screen_active());
-  lv_obj_add_event_cb(settings_btn, handler_settings_btn, LV_EVENT_ALL, NULL);
+  lv_obj_add_event_cb(settings_btn, SCREENS::SETTINGS::event_handler_settings_btn, LV_EVENT_ALL, NULL);
   lv_obj_align(settings_btn, LV_ALIGN_BOTTOM_RIGHT, -10, -10);
   lv_obj_set_size(settings_btn, 60, 40);
 
