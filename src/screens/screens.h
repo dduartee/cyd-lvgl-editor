@@ -2,20 +2,19 @@
 #define SCREENS_H
 #include <lvgl.h>
 
-// Namespace for main screen
-namespace SCREENS {  // Enum for screen IDs
+namespace SCREENS {
 enum ScreenIDs {
   SCREEN_MAIN,
   SCREEN_SETTINGS,
-};
-ScreenIDs current_screen;
+} current_screen;
+
 namespace MAIN {
 lv_obj_t* main_screen;
 typedef struct {
   int btn1_count = 0;
 } MainConfig;
 MainConfig main_config;
-void event_handler_main_btn(lv_event_t* e) {
+void call_main(lv_event_t* e) {
   lv_event_code_t code = lv_event_get_code(e);
   if (code == LV_EVENT_CLICKED) {
     LOG_STR("Back to main screen");
@@ -24,7 +23,8 @@ void event_handler_main_btn(lv_event_t* e) {
     LOG_VAR(current_screen);
   }
 }
-}  // namespace main_screen
+
+}  // namespace MAIN
 namespace SETTINGS {
 lv_obj_t* settings_screen;
 typedef struct {
@@ -33,7 +33,7 @@ typedef struct {
   bool sound_enabled;
 } SettingsConfig;
 SettingsConfig settings_config;
-void event_handler_settings_btn(lv_event_t* e) {
+void call_settings(lv_event_t* e) {
   lv_event_code_t code = lv_event_get_code(e);
   if (code == LV_EVENT_CLICKED) {
     LOG_STR("Opening settings screen");
@@ -42,7 +42,7 @@ void event_handler_settings_btn(lv_event_t* e) {
     LOG_VAR(current_screen);
   }
 }
-}  // namespace settings_screen
+}  // namespace SETTINGS
 
-}  // namespace screens
-#endif  // SCREENS_H
+}  // namespace SCREENS
+#endif
