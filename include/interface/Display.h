@@ -9,5 +9,6 @@ void createDisplay() {
   // Initialize the TFT display using the TFT_eSPI library
   disp = lv_tft_espi_create(SCREEN_WIDTH, SCREEN_HEIGHT, draw_buf,
                             sizeof(draw_buf));
+  
   lv_display_set_rotation(disp, LV_DISPLAY_ROTATION_270);
 }

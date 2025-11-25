@@ -1,19 +1,8 @@
-/*  Install the "lvgl" library version 9.2 by kisvegabor to interface with the
-   TFT Display - https://lvgl.io/
-    *** IMPORTANT: lv_conf.h available on the internet will probably NOT work
-   with the examples available at Random Nerd Tutorials ***
-    *** YOU MUST USE THE lv_conf.h FILE PROVIDED IN THE LINK BELOW IN ORDER TO
-   USE THE EXAMPLES FROM RANDOM NERD TUTORIALS *** FULL INSTRUCTIONS AVAILABLE
-   ON HOW CONFIGURE THE LIBRARY: https://RandomNerdTutorials.com/cyd-lvgl/ or
-   https://RandomNerdTutorials.com/esp32-tft-lvgl/   */
+#include <Arduino.h>
 #include <lvgl.h>
-
+#include "ui.h"
+#include "interface/Display.h"
 #include "interface/Touchscreen.h"
-
-// Include the Logger
-#include "Logger.h"
-#include "screens/main_screen.h"
-#include "screens/settings_screen.h"
 
 // If logging is enabled, it will inform the user about what is happening in the
 // library
@@ -35,26 +24,28 @@ void setup() {
   lv_log_register_print_cb(log_print);
 
   createDisplay();
-
   initInputDevice();
 
-  LOG_STR("Creating screens...");
-
-  init_settings_screen();
-  init_main_screen();
-
-  load_main_screen();
-  load_settings_screen();
-
-  // Return to main screen
-  LOG_STR("Returning to main screen");
-  lv_screen_load(main_screen);
-
-  LOG_STR("Setup completed successfully");
+  // Parameter to editor_project_init() is the asset path.
+  // Provide the base directory where LVGL should look for asset files (fonts & images).
+  // If you are not loading assets from a filesystem, pass an empty string "".
+  //
+  // Example folder structure:
+  //   /editor_project/fonts/font.ttf
+  //   /editor_project/images/image.bin
+  //
+  // LVGL uses a drive letter prefix based on what you configure (e.g. "C", "D", etc.).
+  // If you configure the drive letter as "C", the path would be:
+  //   C:/editor_project/
+  //
+  // Example:
+  // editor_project_init("C:/editor_project/");
+  ui_init("");       // Load LVGL Editor UI
+  lv_screen_load(hello_create()); // Load the hello screen
 }
 
 void loop() {
-  lv_task_handler();  // let the GUI do its work
-  lv_tick_inc(5);     // tell LVGL how much time has passed
-  delay(5);           // let this time pass
+  lv_timer_handler(); // Handle LVGL tasks
+  lv_tick_inc(5);    // Tell LVGL that 5 milliseconds were elapsed
+  delay(5);
 }

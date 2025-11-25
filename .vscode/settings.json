@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "ui_gen.h": "c",
+        "lvgl.h": "c",
+        "lv_obj.h": "c"
+    }
+}

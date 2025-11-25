@@ -1,4 +1,3 @@
-#include "interface/Display.h"
 #include "interface/XPT2046.h"
 #include "lvgl.h"
 // Touchscreen coordinates: (x, y) and pressure (z)

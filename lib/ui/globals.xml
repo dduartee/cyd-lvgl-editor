@@ -1,0 +1,26 @@
+<globals>
+    <api>
+        <!-- Add <enumdefs> here -->
+    </api>
+
+    <consts>
+        <!-- Add <px>, <int>, <color> etc here -->
+    </consts>
+
+    <styles>
+        <!-- Add <style> tags here -->
+    </styles>
+
+    <subjects>
+        <!-- Add <int>, <string>, or <float> subjects here -->
+        <int name="dark_theme" value="0" help="0:light 1:dark" />
+    </subjects>
+
+    <images>
+        <!-- Add <file> or <data> tags here -->
+    </images>
+
+    <fonts>
+        <!-- Add <bin> , <tiny_ttf>, <freetype> tags here -->
+    </fonts>
+</globals>
