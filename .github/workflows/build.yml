@@ -20,5 +20,15 @@ jobs:
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
+      - name: Instalar dependências do PlatformIO
+        run: pio lib install
+
+      - name: Mover lv_conf.h e User_Setup.h para .pio/libdeps
+        run: |
+          mkdir -p .pio/libdeps
+          cp include/interface/lv_conf.h .pio/libdeps/
+          mkdir -p .pio/libdeps/esp32doit-devkit-v1/TFT_eSPI
+          cp include/interface/User_Setup.h .pio/libdeps/esp32doit-devkit-v1/TFT_eSPI/
+
       - name: Build PlatformIO Project
         run: pio run
