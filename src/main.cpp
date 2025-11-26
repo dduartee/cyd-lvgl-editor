@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <lvgl.h>
-#include "ui.h"
+#include "ui/ui.h"
 #include "interface/Display.h"
 #include "interface/Touchscreen.h"
 
@@ -40,12 +40,12 @@ void setup() {
   //
   // Example:
   // editor_project_init("C:/editor_project/");
-  ui_init("");       // Load LVGL Editor UI
-  lv_screen_load(hello_create()); // Load the hello screen
+  ui_init();
 }
 
 void loop() {
   lv_timer_handler(); // Handle LVGL tasks
-  lv_tick_inc(5);    // Tell LVGL that 5 milliseconds were elapsed
+  lv_tick_inc(5);
+  ui_tick();
   delay(5);
 }
